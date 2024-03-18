@@ -1,0 +1,124 @@
+.navbar-light {
+    background-color: rgb(124, 151, 147) !important;
+    border: none !important;
+    border-width:0!important;
+}
+
+.card-img-top {
+    height: 330px;
+}
+
+.card-color{
+  background-color: rgb(225, 211, 142);
+}
+
+.armed{
+  font-weight: bold;
+  color: brown;
+  text-shadow: 1px 1px black;
+
+}
+
+
+.address{
+ color: rgb(252, 255, 249);
+ text-shadow: 1px 1px 2px black;
+ text-align: center;
+ background-color: rgb(124, 151, 147);
+ border: 1px solid;
+ margin-top: 2px;
+ margin-bottom: 2px;
+ /* background-image: url("{% static "static/army/extraimages/phone-2280940.jpg" %}"); */
+}
+
+
+.register{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 500px;
+    background-color: rgb(124, 151, 147);
+    border-radius: 20px;
+  }
+  
+.register-button{
+    color: black;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
+  }
+  
+.register-heading{
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+.register-button{
+    width: 270px;
+  }
+  
+.profile{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 400px;
+    
+  }
+  
+ 
+.change-password{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 500px;
+  background-color: rgb(124, 151, 147);
+  border-radius: 20px;
+  margin-right: 50px;
+  }
+  
+  
+.profile-form{
+    margin-top: 20px;
+    width: 500px;
+    background-color: rgb(124, 151, 147);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    
+  }
+
+.storedetails{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: rgb(124, 151, 147);
+  border-style: groove;
+  border-width: 5px;
+  border-color: hsl(0, 0%, 2%); 
+  
+}
+
+
+.rupee ,.cart-selling-price{
+  text-decoration:line-through;
+}
+
+.shoes_border{
+  border-style: solid;
+}
+
+.shopcart{
+  margin-right: 50px;
+
+}
+
+.adjust1{
+  width: 800px;
+  margin-left: 0px;
+}
+
+.adjust2{
+  position: absolute;
+  width: 800px;
+  top: 155px;
+  right: 30px;
+  
+}
+
+

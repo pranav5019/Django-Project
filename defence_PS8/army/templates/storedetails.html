@@ -1,0 +1,31 @@
+{% extends "army.html" %}
+
+{% block title %}store Details{% endblock title %}
+
+{% block content %}
+<div class="container storedetails">
+    <div class="row">
+        <div class="col-sm-4">
+            <span class="border border-danger">
+                <img src="{{store.Store_image.url}}" class="img-fluid rounded border border-primary" alt="Responsive image">
+            </span>
+        </div>
+        <div class="col-sm-8">
+            <div class="container">
+                <h1 style="font-weight: bold; color: rgb(255, 255, 255); text-shadow: 2px 2px 4px rgb(255, 0, 0); text-align: center;">{{store.name}}</h1>
+                <p class="lead text-center" style="color: black; font-weight: bold;">{{store.small_description}}</p>
+                <div class="text-center">
+                    <h4 class="font-weight-bold" style="color: black; font-weight: bold;"><i class="fa-solid fa-indian-rupee-sign"></i>{{store.discounted_price}} <small class="fw-light rupee">{{store.selling_price}}</small> <small class="text-danger">({{percentage}}% off)</small></h4> 
+                    <a href="{% url 'addtocart' store.id %}" class="btn btn-info my-2 mr-2" style="color: black; font-weight: bold;">Add to cart  <i class="fa-solid fa-cart-shopping"></i></a>    <!-- when we will click on add to cart button, addtocart url will be called along with id of particular store, then particular store id will be send to the add_to_cart() in views -->
+                    <a href="{% url "buynow" store.id %}" class="btn btn-success my-2"  style="color: black; font-weight: bold;">Buy Now</a>
+                </div>
+                <div class="description" style="color: black; font-weight: bold;">
+                    <h2 class="jumbotron-heading mt-5" style="color: rgb(255, 255, 255); text-shadow: 2px 2px 4px rgb(0, 0, 0); font-weight: bold;">Description :-</h2>
+                    {{store.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}

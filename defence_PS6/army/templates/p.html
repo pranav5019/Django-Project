@@ -1,0 +1,163 @@
+<div class="container" style="width: 100%;">
+    <div class="row">
+        <div class="container-md" style="width: 100%;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="color: rgb(252, 252, 252); text-shadow: 2px 2px 4px rgb(0, 21, 252); font-weight: bold;">Shopping Summary</h2>
+            </div>
+            <div class="card">
+                <div class="card-header" style="background-color: rgb(124, 151, 147); text-align: center;">
+                    <h3 class="text-xs-center" style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249);"><strong>Order summary</strong></h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th><strong>Product Name</strong></th>
+                                    <th class="text-center"><strong>Product Price</strong></th>
+                                    <th class="text-center"><strong>Product Quantity</strong></th>
+                                    <th class="text-right"><strong>Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                    <td>{{item.product.name}}</td>
+                                    <td class="text-center">₹{{item.product.discounted_price}}</td>
+                                    <td class="text-center">{{item.quantity}}</td>
+                                    <td class="text-right">₹{{item.product.price_and_quantity_total}}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="highrow"></td>
+                                    <td class="highrow"></td>
+                                    <td class="highrow text-center"><strong>Order Price</strong></td>
+                                    <td class="highrow text-right">₹<b>{{total}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Delivery Charges</strong></td>
+                                    <td class="emptyrow text-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Subtotal</strong></td>
+                                    <td class="emptyrow text-right">₹<b>{{final_price}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>GST</strong></td>
+                                    <td class="emptyrow text-right"><b> + 5%</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Total Price</strong></td>
+                                    <td class="emptyrow text-right">₹<b>{{final_price_with_gst}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <div>
+                    <button type="button" class="btn btn-warning btn-block btn-lg btn-new" style="border: 4px solid black;">Proceed to Pay</button>
+                </div>
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <div>
+                    <a href="{% url "generate_pdf"  %}" class=""><button type="button" class="btn btn-light btn-block btn-lg btn-new" style="border: 4px solid red;">Download Order Summary Bill</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        {% for add in address %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        NAME: {{ add.name|upper }}
+                    </h5>
+                    <p class="card-text mb-1">Address: {{ add.address }}</p>
+                    <p class="card-text mb-1">City: {{ add.city }}</p>
+                    <p class="card-text mb-1">State: {{ add.state }}</p>
+                    <p class="card-text mb-1">Pincode: {{ add.pincode }}</p>
+                    <form action="{% url 'deleteaddress' add.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm mt-2">Delete Address</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row">
+    <form class="needs-validation" novalidate="">
+        <h4 class="mb-3">Payment</h4>
+
+        <div class="d-block my-3">
+            <div class="custom-control custom-radio">
+                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                <label class="custom-control-label" for="credit">Credit card</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                <label class="custom-control-label" for="debit">Debit card</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                <label class="custom-control-label" for="paypal">Paypal</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                    Name on card is required
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="cc-number">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Credit card number is required
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration">Expiration</label>
+                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Expiration date required
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Security code required
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4 ">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        </div>
+    </form>
+</div>
+</div>

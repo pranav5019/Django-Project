@@ -1,0 +1,165 @@
+{% extends "army.html" %}
+
+{% block content %}
+<div class="container-fluid " style="width: 100%;">
+    <div class="row">
+        <div class="container-md adjust1">
+
+            
+            {% comment %} <section class="h-100" style="background-color: #eee;"> {% endcomment %}
+            <div class="container h-100 py-5">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-10">
+        
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 style="color: rgb(252, 252, 252); text-shadow: 2px 2px 4px rgb(25, 0, 252); font-weight: bold;">Shopping Cart</h2>
+                    </div>
+                {% for item in cart_items %}
+        
+                    <div class="card rounded-5 mb-4" style="background-color: rgb(124, 151, 147);">
+                        <div class="card-body p-4">
+                        <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img
+                            src="{{item.product.Store_image.url}}"
+                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="lead fw-normal mb-2" style="color: black; font-weight: bold;">{{item.product.name}}</h6> <!-- item.product.name = cart_items will hold all object from cart of current user , item variable will hold one object from cart_items and render on view_cart.html -->
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button class="btn btn-link px-2">
+                            <a href="{% url 'delete_quantity' item.id %}"><i class="fas fa-minus"></i></a>
+                            </button>
+                            <div class="form-control form-control-sm">
+                                {{item.quantity}}     
+                            </div>
+                            <button class="btn btn-link px-2">
+                             <a href="{% url 'add_quantity' item.id %}"><i class="fas fa-plus"></i></a> <!-- When we will click on + icon  {% url 'add_quantity' item.id %} add_quantity url will be hit along with item.id, item.id hold the 'id' of Cart model, so that quantity should be added of that particular Store and current user -->
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 ">
+                            <h5 class="mb-0" style="color: black; font-weight: bold;">₹{{item.product.discounted_price}}</h5>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <form action="{% url "deletecart" item.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash-can"></i>                                    
+                                </button>
+                            </form>  
+                        </div>   
+                    </div>
+                </div>
+                </div>
+           {% endfor %}
+                
+            </div>
+            </div>
+        </div>
+        </section>
+    </div>
+</div>
+</div>
+
+
+
+<div class="container " style="width: 100%;">
+    <div class="row">
+        <div class="container-md adjust2" >
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="color: rgb(252, 252, 252); text-shadow: 2px 2px 4px rgb(0, 21, 252); font-weight: bold;">Shopping Summary</h2>
+            </div>
+            <div class="card ">
+                <div class="card-header" style="background-color: rgb(124, 151, 147);text-align: center;">
+                    <h3 class="text-xs-center " style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249);"><strong>Order summary</strong></h3>
+                </div>
+                <div class="card-block ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-dark table-sm">
+                            <thead>
+                              <tr>
+                                <th><strong>Product Name</strong></th>
+                                <th class="text-xs-center"><strong>Product Price</strong></th>
+                                <th class="text-xs-center"><strong>Product Quantity</strong></th>
+                                <th class="text-xs-right"><strong>Total</strong></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                              <tr>
+                                <td>{{item.product.name}}</td>
+                                <td class="text-xs-center">₹{{item.product.discounted_price}}</td>
+                                <td class="text-xs-center">{{item.quantity}}</td>
+                                <td class="text-xs-right">₹{{item.product.price_and_quantity_total}}</td>
+                              </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="highrow"></td>
+                                    <td class="highrow"></td>
+                                    <td class="highrow text-xs-center"><strong>Order_price</strong></td>
+                                    <td class="highrow text-xs-right">₹<b>{{total}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>DeliveryCharges</strong></td>
+                                    <td class="emptyrow text-xs-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>Subtotal</strong></td>
+                                    <td class="emptyrow text-xs-right">₹<b>{{final_price}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>GST</strong></td>
+                                    <td class="emptyrow text-xs-right"><b> + 5%</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>Total_price</strong></td>
+                                    <td class="emptyrow text-xs-right">₹<b>{{final_price_with_gst}}</b></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <a href="{% url "checkout" %}">
+                <div class="" style="text-align: center;">
+                    <div >
+                        <button type="button" class="btn btn-warning btn-block btn-lg btn-new" style="border: 4px solid black;">Proceed to Pay</button>
+                    </div>
+                </div>
+            </a>
+            <br>
+            <div class="" style="text-align: center;">
+                <div >
+                    <a href="{% url "generate_pdf"  %}" class=""><button type="button" class="btn btn-light btn-block btn-lg btn-new" style="border: 4px solid red;">Download Order Summary Bill</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>        
+            
+
+
+{% endblock content %}
+
+
+
+
+
+
+   
+                    
+                    
+                        
+                        
+

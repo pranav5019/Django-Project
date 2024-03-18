@@ -1,0 +1,23 @@
+{% extends "army.html" %}
+{% load static %}
+{% block title %}Tshirt{% endblock title %}
+
+{% block content %}
+
+<div class="container mr-3 ">
+    <div class="row">
+        {% for ts in tshirt %}
+      <div class="col-sm-3 mb-3 mt-3">
+        <div class="card " style="width: 18rem;">
+          <img src="{{ts.Store_image.url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ts.name}}</h5>
+            <h5 class="font-weight-bold text-dark "><i class="fa-solid fa-indian-rupee-sign"></i>{{ts.discounted_price}} <small class="fw-light rupee">{{ts.selling_price}}</small> <small class="text-danger">(23% off)</small></h5> 
+            <a href="{% url "storedetails" ts.id %}" class="btn btn-primary">Add To Cart <i class="fa-solid fa-cart-shopping"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+{% endblock content %}

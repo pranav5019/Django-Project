@@ -1,0 +1,89 @@
+{% extends "army.html" %}
+
+{% block content %}
+
+<div class="container" style="width: 100%;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-header" style="background-color: rgb(124, 151, 147); text-align: center;">
+                    <h3 class="text-center" style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249); font-weight: bold;">Shopping Summary</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col" class="text-center">Price</th>
+                                    <th scope="col" class="text-center">Quantity</th>
+                                    <th scope="col" class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                    <td>{{ item.product.name }}</td>
+                                    <td class="text-center">₹{{ item.product.discounted_price }}</td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-right">₹{{ item.product.price_and_quantity_total }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Order Price:</strong></td>
+                                    <td class="text-right">₹{{ total }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Delivery Charges:</strong></td>
+                                    <td class="text-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                    <td class="text-right">₹{{ final_price }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>GST:</strong></td>
+                                    <td class="text-right">+ 5%</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+                                    <td class="text-right">₹{{ final_price_with_gst }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 style="text-align: center; font-weight: bold; color: #fffafa; text-shadow: 2px 2px 4px rgb(132, 0, 255); margin-top: 40px;">Checkout Address</h2>
+<div class="container mt-4 mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" action="{% url 'payment' %}" style="background-color: rgb(124, 151, 147); padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); transition: 0.3s;">
+                {% csrf_token %}
+                {% for add in address %}
+                <div class="card mb-4" style="background-color: #fff; border-radius: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); transition: 0.3s;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 class="card-title" style="margin-bottom: 15px; font-weight: bold;">
+                            <input type="radio" id="address{{ add.id }}" name="selected_address" value="{{ add.id }}">
+                            <label for="address{{ add.id }}" style="font-weight: bold;">NAME:</label> {{ add.name|upper }}
+                        </h5>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">Address:</span> {{ add.address }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">City:</span> {{ add.city }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">State:</span> {{ add.state }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">Pincode:</span> {{ add.pincode }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary" value="Proceed to Payment" style="margin-top: 10px;">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

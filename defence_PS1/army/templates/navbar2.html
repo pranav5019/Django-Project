@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Twelfth navbar example">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+      <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "profile" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-heart" style="color: brown;"></i> <b style="color: brown;">WELCOME {{user.first_name|upper}}</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i> <b>HOME</b></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: rgb(15, 1, 1); font-weight: bolder;">
+            <i class="fa-solid fa-layer-group"></i>
+          SELECT CATEGORY
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url "tshirt" %}">T-shirt</a>
+            <a class="dropdown-item" href="{% url "pant" %}">Pant</a>
+            <a class="dropdown-item" href="{% url "shoes" %}">Shoes</a>
+            <a class="dropdown-item" href="{% url "watch" %}">Watch</a>
+            <a class="dropdown-item" href="{% url "jacket" %}">Jacket</a>
+            <a class="dropdown-item" href="{% url "bags" %}">Bags</a>
+
+
+          </div>
+        </li>
+        
+      
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "contact" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-phone" style="color: black;"></i> <b>CONTACT</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "myorder" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-cart-shopping" style="color: black;"></i> <b>MY_ORDER</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "changepassword" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-wrench"></i> <b>CHANGEPASSWORD</b></a>
+        </li>
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-file"></i> <b>MY_ORDER</b></a>
+        </li> {% endcomment %}
+       
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "logout" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-right-from-bracket" style="color: black;"></i> <b>LOGOUT</b></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "registration" %}" style="color: rgb(15, 1, 1);"><i class="fa-regular fa-user" style="color: black;"></i> <b>REGISTER</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "login" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-user" style="color: black;"></i> <b>LOGIN</b></a>
+        </li>
+        
+        
+        {% endif %}
+        
+      </ul>
+    </div>
+  </div>
+</nav>

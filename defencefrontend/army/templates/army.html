@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "army/css/all.min.css" %}">
+    <link rel="stylesheet" href="{% static "army/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "army/css/army.css" %}">
+   
+    
+   
+</head>
+<body>   
+        
+        {% include "navbar.html" %}
+
+        {% include "navbar2.html" %}
+
+        {% block content %}{% endblock content %}
+        
+        {% include "footer.html" %}
+        
+        {% comment %} {% include "album.html" %} {% endcomment %}
+        
+
+       
+
+        
+
+
+    <script src="{% static "army/js/jquery.js" %}"></script>
+    <script src="{% static "army/js/popper.js" %}"></script>
+    <script src="{% static "army/js/all.min.js" %}"></script>
+    <script src="{% static "army/js/bootstrap.min.js" %}"></script>
+    
+    
+</body>
+</html>

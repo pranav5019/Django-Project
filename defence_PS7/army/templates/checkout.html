@@ -1,0 +1,168 @@
+{% extends "army.html" %}
+{% block content %}
+<div class="container" style="width: 100%;">
+    <div class="row">
+        <div class="container-md" style="width: 90%;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="color: rgb(252, 252, 252); text-shadow: 2px 2px 4px rgb(0, 21, 252); font-weight: bold;margin-top: 20px;">Shopping Summary</h2>
+            </div>
+            <div class="cardx" style="background-color: rgb(124, 151, 147); ">
+                <div class="card-header" style="background-color: rgb(124, 151, 147); text-align: center;">
+                    <h3 class="text-xs-center" style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249);"><strong>Order summary</strong></h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th><strong>Product Name</strong></th>
+                                    <th class="text-center"><strong>Product Price</strong></th>
+                                    <th class="text-center"><strong>Product Quantity</strong></th>
+                                    <th class="text-right"><strong>Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                    <td>{{item.product.name}}</td>
+                                    <td class="text-center">₹{{item.product.discounted_price}}</td>
+                                    <td class="text-center">{{item.quantity}}</td>
+                                    <td class="text-right">₹{{item.product.price_and_quantity_total}}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="highrow"></td>
+                                    <td class="highrow"></td>
+                                    <td class="highrow text-center"><strong>Order Price</strong></td>
+                                    <td class="highrow text-right">₹<b>{{total}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Delivery Charges</strong></td>
+                                    <td class="emptyrow text-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Subtotal</strong></td>
+                                    <td class="emptyrow text-right">₹<b>{{final_price}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>GST</strong></td>
+                                    <td class="emptyrow text-right"><b> + 5%</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Total Price</strong></td>
+                                    <td class="emptyrow text-right">₹<b>{{final_price_with_gst}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<br>
+
+<h2 style="text-align: center; font-weight: bold; color: #fffafa; text-shadow: 2px 2px 4px rgb(132, 0, 255);">Checkout Address</h2>
+<div class="container mt-4 mb-2" style="display: flex; justify-content: center;">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <form method="post" action="{% url 'payment' %}" style="position: relative; z-index: 1; background-color: rgb(124, 151, 147); padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); transition: 0.3s;">
+                {% csrf_token %}
+                {% for add in address %}
+                <div class="card mb-4" style="position: relative; z-index: 2; background-color: #fff; border-radius: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); transition: 0.3s;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 class="card-title" style="margin-bottom: 15px; font-weight: bold;">
+                            <input type="radio" name="selected_address" value="{{ add.id }}">
+                            <span style="font-weight: bold;">NAME:</span> {{ add.name|upper }}
+                        </h5>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">Address:</span> {{ add.address }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">City:</span> {{ add.city }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">State:</span> {{ add.state }}</p>
+                        <p class="card-text mb-1"><span style="font-weight: bold;">Pincode:</span> {{ add.pincode }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <input type="submit" class="btn btn-primary" value="Proceed to Payment" style="position: relative; z-index: 3; margin-top: 10px;">
+            </form>
+        </div>
+    </div>
+</div>
+{% comment %} <div class="container mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="p-4" style="background-color: rgb(255, 255, 255)">
+                <h4 class="mb-3" style="font-weight: bold;">Payment</h4>
+                <div class="p-3">
+                    <form class="needs-validation" novalidate="">
+                        <div class="form-group row">
+                            <label for="paymentMethod" class="col-sm-3 col-form-label" style="font-weight: bold;">Payment Method</label>
+                            <div class="col-sm-9">
+                                <div class="custom-control custom-radio">
+                                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="credit">Credit card</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="debit">Debit card</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label mb-2" for="paypal">Paypal</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cc-name" class="col-sm-3 col-form-label mb-2 " style="font-weight: bold;">Name on card</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Name on card is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cc-number" class="col-sm-3 col-form-label mb-2" style="font-weight: bold;">Credit card number</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Credit card number is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cc-expiration" class="col-sm-3 col-form-label" style="font-weight: bold;">Expiration</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Expiration date required
+                                </div>
+                            </div>
+                            <label for="cc-cvv" class="col-sm-3 col-form-label" style="font-weight: bold;">CVV</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Security code required
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+{% endblock content %}

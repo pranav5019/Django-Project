@@ -1,0 +1,93 @@
+{% extends "army.html" %}
+
+{% block content %}
+
+<div class="container" style="width: 100%;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="margin-top: 20px; pointer-events: none;">
+                <div class="card-header" style="background-color: rgb(124, 151, 147); text-align: center;">
+                    <h3 class="text-center" style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249); font-weight: bold;">Order Summary</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col" class="text-center">Price</th>
+                                    <th scope="col" class="text-center">Quantity</th>
+                                    <th scope="col" class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>{{ item.product.name }}</td>
+                                    <td class="text-center">₹{{ item.product.discounted_price }}</td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-right">₹{{ item.product.price_and_quantity_total }}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Order Price:</strong></td>
+                                    <td class="text-right">₹{{ total }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Delivery Charges:</strong></td>
+                                    <td class="text-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                    <td class="text-right">₹{{ final_price }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>GST:</strong></td>
+                                    <td class="text-right">+ 5%</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+                                    <td class="text-right">₹{{ final_price_with_gst }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" action="{% url 'buynowpayment' store.id %}">
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(124, 151, 147); text-align: center;">
+                        <h3 class="text-center" style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249); font-weight: bold;">Checkout Address</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for add in address %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><input type="radio" name="buynow_selected_address" value="{{ add.id }}"></h5>
+                                <p class="card-text"><strong>Name:</strong> {{ add.name }}</p>
+                                <p class="card-text"><strong>Address:</strong> {{ add.address }}</p>
+                                <p class="card-text"><strong>City:</strong> {{ add.city }}</p>
+                                <p class="card-text"><strong>State:</strong> {{ add.state }}</p>
+                                <p class="card-text"><strong>Pincode:</strong> {{ add.pincode }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

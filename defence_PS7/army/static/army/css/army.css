@@ -1,0 +1,220 @@
+.navbar-light {
+    background-color: rgb(124, 151, 147) !important;
+    border: none !important;
+    border-width:0!important;
+}
+
+.card-img-top {
+    height: 330px;
+}
+
+.card-color{
+  background-color: rgb(225, 211, 142);
+}
+
+.armed{
+  font-weight: bold;
+  color: brown;
+  text-shadow: 1px 1px black;
+
+}
+
+
+.address{
+ color: rgb(252, 255, 249);
+ text-shadow: 1px 1px 2px black;
+ text-align: center;
+ background-color: rgb(124, 151, 147);
+ border: 1px solid;
+ margin-top: 2px;
+ margin-bottom: 2px;
+ /* background-image: url("{% static "static/army/extraimages/phone-2280940.jpg" %}"); */
+}
+
+
+.register{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 500px;
+    background-color: rgb(124, 151, 147);
+    border-radius: 20px;
+  }
+  
+.register-button{
+    color: black;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
+  }
+  
+.register-heading{
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+.register-button{
+    width: 270px;
+  }
+  
+.profile{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 400px;
+    
+  }
+  
+ 
+.change-password{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 500px;
+  background-color: rgb(124, 151, 147);
+  border-radius: 20px;
+  margin-right: 50px;
+  }
+  
+  
+.profile-form{
+    margin-top: 20px;
+    width: 500px;
+    background-color: rgb(124, 151, 147);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    
+  }
+
+.storedetails{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: rgb(124, 151, 147);
+  border-style: groove;
+  border-width: 5px;
+  border-color: hsl(0, 0%, 2%); 
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.storedetails:hover {
+  transform: scale(1.1); /* Adjust the scale factor for zoom effect */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Adjust the box-shadow properties for hover effect */
+  background-color: rgb(124, 151, 147); /* Keep the same background color on hover or change it as needed */
+  border-color: hsl(0, 0%, 10%); /* Adjust the border color on hover or keep it the same */
+}
+
+
+.rupee ,.cart-selling-price{
+  text-decoration:line-through;
+}
+
+.shoes_border{
+  border-style: solid;
+}
+
+.shopcart{
+  margin-right: 50px;
+
+}
+
+.adjust1{
+  width: 800px;
+  margin-left: 0px;
+}
+
+.adjust2{
+  position: absolute;
+  width: 800px;
+  top: 155px;
+  right: 30px;
+  margin-bottom: 300px;
+  
+}
+
+.ad1{
+  width: 800px;
+  margin-left: 0px;
+}
+
+.box-shadow{
+  box-shadow: 10px 10px 5px lightblue;
+} 
+
+.profile-form2 {
+  background-color: rgb(124, 151, 147); /* Set the background color */
+  padding: 20px; /* Adjust padding for better spacing */
+  border-radius: 10px;
+  margin-top: 40px;
+  width: 800px;
+  margin-bottom: 20px;
+  margin-left: 250px;
+      
+}        
+                    
+.profile-form2 input[type="submit"]:hover {
+        background-color: rgb(255, 0, 0); /* Change button background color on hover */
+    }
+
+
+.card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+      transition: background-color 0.3s ease;
+}
+
+.card:hover .card-body {
+      background-color: rgba(197, 239, 239, 0.8);
+}
+
+  .card-title {
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+.card:hover .card-title {
+      color: rgb(255, 0, 0);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.card-text {
+      transition: color 0.3s ease;
+}
+
+.card:hover .card-text {
+      color: rgba(0, 0, 0, 0.9);
+}
+
+.btn-danger {
+      transition: background-color 0.3s ease;
+}
+
+  .btn-danger:hover {
+      background-color: #dcd935;
+}
+.change-password50 {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.change-password50:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+}
+
+.register-button {
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #ff0000; /* Change to desired hover background color */
+}
+
+.btn-new:hover {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+

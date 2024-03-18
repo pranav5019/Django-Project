@@ -1,0 +1,79 @@
+{% extends "army.html" %}
+{% block content %}
+
+<!-- bill_template.html -->
+
+<div class="container " style="width: 100%;">
+    <div class="row">
+        <div class="container-md adjust2" >
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="color: rgb(252, 252, 252); text-shadow: 2px 2px 4px rgb(0, 21, 252); font-weight: bold;">Shopping Summary</h2>
+            </div>
+            <div class="card ">
+                <div class="card-header" style="background-color: rgb(124, 151, 147);text-align: center;">
+                    <h3 class="text-xs-center " style="color: red; text-shadow: 2px 2px 4px rgb(249, 249, 249);"><strong>Order summary</strong></h3>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "profile" %}" style="color: rgb(15, 1, 1);"><i class="fa-solid fa-heart" style="color: brown;"></i> <b style="color: brown;">WELCOME {{user.first_name|upper}}</b></a>
+                </li>
+                <div class="card-block ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-dark table-sm">
+                            <thead>
+                              <tr>
+                                <th><strong>Product Name</strong></th>
+                                <th class="text-xs-center"><strong>Product Price</strong></th>
+                                <th class="text-xs-center"><strong>Product Quantity</strong></th>
+                                <th class="text-xs-right"><strong>Total</strong></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                              <tr>
+                                <td>{{item.product.name}}</td>
+                                <td class="text-xs-center">₹{{item.product.discounted_price}}</td>
+                                <td class="text-xs-center">{{item.quantity}}</td>
+                                <td class="text-xs-right">₹{{item.product.price_and_quantity_total}}</td>
+                              </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="highrow"></td>
+                                    <td class="highrow"></td>
+                                    <td class="highrow text-xs-center"><strong>Order_price</strong></td>
+                                    <td class="highrow text-xs-right">₹<b>{{total}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>DeliveryCharges</strong></td>
+                                    <td class="emptyrow text-xs-right">₹150</td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>Subtotal</strong></td>
+                                    <td class="emptyrow text-xs-right">₹<b>{{final_price}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>GST</strong></td>
+                                    <td class="emptyrow text-xs-right"><b> + 5%</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-xs-center"><strong>Total_price</strong></td>
+                                    <td class="emptyrow text-xs-right">₹<b>{{final_price_with_gst}}</b></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
